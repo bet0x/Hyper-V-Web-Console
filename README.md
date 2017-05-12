@@ -21,6 +21,12 @@ Probado en Windows 10 Pro + GoLang 1.8.1
 * Reiniciar VM
 * Parar VM
 
-## Creditos
+## Futuras características
+* Puntos de chequeo
+* Linux Integration Components
+* Manejo de red
+* Usuarios
+
+## Créditos
 * Basado en el trabajo original de @myanote
 * Boostrap alpha 4
