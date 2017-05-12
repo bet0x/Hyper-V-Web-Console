@@ -11,8 +11,16 @@ Abre la siguiente dirección en tu navegador `http://localhost:8080/`.
 > go run hyper-v-web-console.go
 ```
 
+# Requisitos & Prueba
+* Golang
+Probado en Windows 10 Pro + GoLang 1.8.1
+
 ## Características
 * Información basica de las maquinas virtuales
 * Iniciar VM
 * Reiniciar VM
 * Parar VM
+
+## Creditos
+* Basado en el trabajo original de @myanote
+* Boostrap alpha 4
