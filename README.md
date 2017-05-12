@@ -21,6 +21,7 @@ Abre la siguiente dirección en tu navegador `http://localhost:8080/`.
 * Iniciar VM
 * Reiniciar VM
 * Parar VM
+* HTTP Auth básico
 
 ## Futuras características
 * Puntos de chequeo
