@@ -13,7 +13,8 @@ Abre la siguiente dirección en tu navegador `http://localhost:8080/`.
 
 # Requisitos & Prueba
 * Golang
-Probado en Windows 10 Pro + GoLang 1.8.1
+* Editar el archivo config.json
+* Probado en Windows 10 Pro + GoLang 1.8.1
 
 ## Características
 * Información basica de las maquinas virtuales
@@ -25,7 +26,7 @@ Probado en Windows 10 Pro + GoLang 1.8.1
 * Puntos de chequeo
 * Linux Integration Components
 * Manejo de red
-* Usuarios
+* ~~Usuarios~~
 
 ## Créditos
 * Basado en el trabajo original de @myanote

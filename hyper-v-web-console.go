@@ -8,7 +8,16 @@ import (
 	"os/exec"
 	"regexp"
 	"strconv"
+	"crypto/subtle"
+	"io/ioutil"
+	"log"
 )
+
+// Username & pass for basic auth
+type Configuration struct {
+  Username     string `json:"Username"`
+  Password     string `json:"Password"`
+}
 
 // VM Infomation struct from powershell command 'Get-VM'.
 type VM struct {
@@ -36,12 +45,39 @@ type VMs struct {
 	vm []VM
 }
 
+func LoadConfig(path string) Configuration {
+	file, err := ioutil.ReadFile(path)
+	if err != nil {
+		log.Fatal("Config File Missing. ", err)
+	}
+	var config Configuration
+	err = json.Unmarshal(file, &config)
+	if err != nil {
+		log.Fatal("Config Parse Error: ", err)
+	}
+	return config
+}
+
+
+func BasicAuth(handler http.HandlerFunc, username, password, realm string) http.HandlerFunc {
+    return func(w http.ResponseWriter, r *http.Request) {
+        user, pass, ok := r.BasicAuth()
+        if !ok || subtle.ConstantTimeCompare([]byte(user), []byte(username)) != 1 || subtle.ConstantTimeCompare([]byte(pass), []byte(password)) != 1 {
+            w.Header().Set("WWW-Authenticate", `Basic realm="`+realm+`"`)
+            w.WriteHeader(401)
+            w.Write([]byte("Unauthorised.\n"))
+            return
+        }
+        handler(w, r)
+    }
+}
 func main() {
+	config := LoadConfig("./config.json")
 	http.HandleFunc("/public/", func(w http.ResponseWriter, r *http.Request) {
 		http.ServeFile(w, r, r.URL.Path[1:])
 	})
 
-	http.HandleFunc("/", indexHandler)
+	http.HandleFunc("/", BasicAuth(indexHandler, config.Username, config.Password, "Please enter your username and password for this site"))
 	http.HandleFunc("/checkpoint", checkpointHandler)
 	http.HandleFunc("/help", helpHandler)
 	http.HandleFunc("/startvm", startVMHandler)
