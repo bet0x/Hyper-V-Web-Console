@@ -85,7 +85,7 @@ func main() {
 	http.HandleFunc("/stopvm", stopVMHandler)
 
 	// set the port and start server.
-	http.ListenAndServe(":8080", nil)
+	http.ListenAndServe(":8081", nil)
 }
 
 func indexHandler(w http.ResponseWriter, r *http.Request) {
